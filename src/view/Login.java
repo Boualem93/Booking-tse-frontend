@@ -1,3 +1,4 @@
+package view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,7 +10,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
 
-public class Index {
+public class Login {
 
 	private JFrame frame;
 	private JTextField usernametf;
@@ -22,7 +23,7 @@ public class Index {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Index window = new Index();
+					Login window = new Login();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +35,7 @@ public class Index {
 	/**
 	 * Create the application.
 	 */
-	public Index() {
+	public Login() {
 		initialize();
 	}
 
