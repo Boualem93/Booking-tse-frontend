@@ -17,6 +17,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/boual/Desktop/3emeannee/1ersemestre/Webservices/glassfish/glassfish4/glassfish/lib/gf-client.jar"/>
-	<classpathentry kind="lib" path="C:/Users/boual/Desktop/PRI/FrontEndMiddleware/tseclient.jar"/>
+	<classpathentry kind="lib" path="C:/Users/boual/Desktop/3emeannee/1ersemestre/Middleware/TSEClient_v20170123.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

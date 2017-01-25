@@ -12,6 +12,7 @@ import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 
+import enterprise.service.Authentication;
 import enterprise.service.Register;
 import enterprise.service.exceptions.CustomerEmailException;
 import enterprise.service.exceptions.CustomerEntityExistsException;
@@ -19,26 +20,24 @@ import enterprise.service.exceptions.CustomerPasswordException;
 import model.Customer;
 
 
-public class registerController {
+public class loginController {
 
 	private InitialContext ctx;
-	private Register registerEJB;
+	private Authentication authenticationEJB;
 
-	public registerController(InitialContext context) {
+	public loginController(InitialContext context) {
 		this.ctx=context;
 		try {
-			
-			registerEJB = (Register) ctx.lookup("enterprise.service.Register");
-
+			authenticationEJB = (Authentication) ctx.lookup("enterprise.service.Authentication");
 		} catch (NamingException nex) {
 			nex.printStackTrace();
 		}
 	}
 
-	public Customer register (String email, String mdp, String nom, String prenom) throws CustomerEntityExistsException, CustomerPasswordException, CustomerEmailException, NamingException{
-		Customer client = null;
-		client = registerEJB.createCustomer(email, mdp, nom, prenom);
-		return client;
+	public String login (String email, String mdp){
+		String token = null;
+		token = authenticationEJB.customerLogin(email, mdp);
+		return token;
 
 	}
 

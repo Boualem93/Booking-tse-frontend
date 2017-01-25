@@ -8,33 +8,41 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.JButton;
+
+import controller.loginController;
 import controller.registerController;
 import enterprise.service.exceptions.CustomerEmailException;
 import enterprise.service.exceptions.CustomerEntityExistsException;
 import enterprise.service.exceptions.CustomerPasswordException;
+import environment.ContextCreator;
 import model.Customer;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 public class Register extends JFrame {
 
 	private JPanel registerbtn;
 	private JTextField firstnametf;
 	private JTextField lastnametf;
 	private JTextField emailtf;
-	private JTextField passwordtf;
 	private	registerController client;
+	private JPasswordField passwordtf;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			InitialContext context = new ContextCreator().getCtx();
+			//registerController logincontroller = new registerController(context);
 			public void run() {
+				
 				try {
-					Register frame = new Register();
+					Register frame = new Register(context);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,9 +53,11 @@ public class Register extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws NamingException 
 	 */
-	public Register() {
-		registerController client = new registerController();
+	public Register(InitialContext context) {
+		
+		registerController client = new registerController(context);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		registerbtn = new JPanel();
@@ -86,11 +96,6 @@ public class Register extends JFrame {
 		registerbtn.add(emailtf);
 		emailtf.setColumns(10);
 		
-		passwordtf = new JTextField();
-		passwordtf.setBounds(199, 121, 86, 20);
-		registerbtn.add(passwordtf);
-		passwordtf.setColumns(10);
-		
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -124,6 +129,10 @@ public class Register extends JFrame {
 		
 		btnRegister.setBounds(196, 166, 89, 23);
 		registerbtn.add(btnRegister);
+		
+		passwordtf = new JPasswordField();
+		passwordtf.setBounds(199, 121, 86, 20);
+		registerbtn.add(passwordtf);
 	}
 
 }
