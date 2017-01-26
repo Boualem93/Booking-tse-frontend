@@ -93,8 +93,9 @@ public class Login {
 					JOptionPane.showMessageDialog(null,"Unable to log in");
 				}
 				else{
-					Home home = new Home();
+					Home home = new Home(context);
 					home.setVisible(true);
+					frame.setVisible(false);
 				}
 			}
 		});

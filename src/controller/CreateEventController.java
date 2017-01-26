@@ -1,12 +1,14 @@
 package controller;
-
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
+import java.util.Vector;
 
+import enterprise.service.EventManager;
 import javax.naming.InitialContext;
 import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
@@ -16,31 +18,40 @@ import enterprise.service.Register;
 import enterprise.service.exceptions.CustomerEmailException;
 import enterprise.service.exceptions.CustomerEntityExistsException;
 import enterprise.service.exceptions.CustomerPasswordException;
-import model.Customer;
+import enterprise.service.exceptions.EventCategoryException;
+import enterprise.service.exceptions.EventNameException;
+import model.Event;
 
 
-public class registerController {
+public class CreateEventController {
 
 	private InitialContext ctx;
-	private Register registerEJB;
+	private EventManager eventManagerEJB;
 
-	public registerController(InitialContext context) {
+	public CreateEventController(InitialContext context) {
 		this.ctx=context;
 		try {
 			
-			registerEJB = (Register) ctx.lookup("enterprise.service.Register");
+			eventManagerEJB = (EventManager) ctx.lookup("enterprise.service.EventManager");
 
 		} catch (NamingException nex) {
 			nex.printStackTrace();
 		}
 	}
 
-	public Customer register (String email, String mdp, String nom, String prenom) throws CustomerEntityExistsException, CustomerPasswordException, CustomerEmailException, NamingException{
-		Customer client = null;
-		client = registerEJB.createCustomer(email, mdp, nom, prenom);
-		return client;
+	public Event create (String name, Date date, String categoryname) throws EventNameException, EventCategoryException{
+		Event event = null;
+		event = eventManagerEJB.createEvent(name, date, categoryname);
+		return event;
 
 	}
+	
+	public List<Event> allEvents(){
+		List<Event> liste = eventManagerEJB.showAllEvent();
+		return liste;
+		
+	}
+	
 	/*
 
         public static String createEvent() {

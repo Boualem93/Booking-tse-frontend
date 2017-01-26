@@ -12,7 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.JButton;
 
-import controller.loginController;
 import controller.registerController;
 import enterprise.service.exceptions.CustomerEmailException;
 import enterprise.service.exceptions.CustomerEntityExistsException;
