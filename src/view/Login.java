@@ -1,29 +1,30 @@
 package view;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controller.loginController;
 import environment.ContextCreator;
 
-import javax.swing.JButton;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.swing.AbstractAction;
-import java.awt.event.ActionEvent;
-import javax.swing.Action;
-import java.awt.event.ActionListener;
-import javax.swing.JPasswordField;
+import model.Customer;
 
-public class Login {
+public
+
+class Login {
 
 	private JFrame frame;
 	private JTextField usernametf;
 	private JPasswordField passwordtf;
-
+	public static Customer result;
 	/**
 	 * Launch the application.
 	 */
@@ -39,7 +40,6 @@ public class Login {
 			}
 		});
 	}
-
 	/**
 	 * Create the application.
 	 * @throws NamingException 
@@ -47,7 +47,6 @@ public class Login {
 	public Login() throws NamingException {
 		initialize();
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 * @throws NamingException 
@@ -88,14 +87,17 @@ public class Login {
 		JButton loginbtn = new JButton("Login");
 		loginbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String result = logincontroller.login(usernametf.getText(),passwordtf.getText());
+				result = logincontroller.login(usernametf.getText(),passwordtf.getText());
 				if(result==null){
 					JOptionPane.showMessageDialog(null,"Unable to log in");
 				}
-				else{
-					Home home = new Home(context);
+				else if(result.getRole()==1){
+					Home home = new Home(context, result);
 					home.setVisible(true);
 					frame.setVisible(false);
+				}else{
+					System.out.println(result.getRole());
+					System.out.println(result.getFirstname());
 				}
 			}
 		});

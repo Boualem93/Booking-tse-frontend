@@ -9,29 +9,32 @@ import java.util.Properties;
 import java.util.Vector;
 
 import enterprise.service.EventManager;
+
 import javax.naming.InitialContext;
 import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 
 import enterprise.service.Register;
+
 import enterprise.service.exceptions.CustomerEmailException;
 import enterprise.service.exceptions.CustomerEntityExistsException;
 import enterprise.service.exceptions.CustomerPasswordException;
 import enterprise.service.exceptions.EventCategoryException;
 import enterprise.service.exceptions.EventNameException;
+import model.Category;
 import model.Event;
 
 
-public class CreateEventController {
+public class EventController {
 
 	private InitialContext ctx;
 	private EventManager eventManagerEJB;
 
-	public CreateEventController(InitialContext context) {
+	public EventController(InitialContext context) {
 		this.ctx=context;
 		try {
-			
+
 			eventManagerEJB = (EventManager) ctx.lookup("enterprise.service.EventManager");
 
 		} catch (NamingException nex) {
@@ -50,6 +53,27 @@ public class CreateEventController {
 		List<Event> liste = eventManagerEJB.showAllEvent();
 		return liste;
 		
+	}
+	
+	public boolean deleteEvent (int id){
+		if (eventManagerEJB.deleteEvent(id))
+		return true;
+		return false;
+	}
+	
+	public Event updateEvent (Event event, String name){
+		Event evt= eventManagerEJB.updateEvent(event, name);
+		return evt;
+	}
+	
+	public Event getEventByID (int id){
+		Event evt = eventManagerEJB.getEventByID(id);
+		return evt;
+	}
+	
+	public List<Category> getAllCategories(){
+		List <Category> liste = eventManagerEJB.getAllCategories();
+		return liste;
 	}
 	
 	/*

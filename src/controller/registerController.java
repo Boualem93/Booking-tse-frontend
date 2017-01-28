@@ -27,7 +27,6 @@ public class registerController {
 	public registerController(InitialContext context) {
 		this.ctx=context;
 		try {
-			
 			registerEJB = (Register) ctx.lookup("enterprise.service.Register");
 
 		} catch (NamingException nex) {

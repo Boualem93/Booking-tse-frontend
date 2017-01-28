@@ -34,11 +34,10 @@ public class loginController {
 		}
 	}
 
-	public String login (String email, String mdp){
-		String token = null;
-		token = authenticationEJB.customerLogin(email, mdp);
-		return token;
-
+	public Customer login (String email, String mdp){
+		Customer user = null;
+		user = authenticationEJB.customerLogin(email, mdp);
+		return user;
 	}
 
 	
